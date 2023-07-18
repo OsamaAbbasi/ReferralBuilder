@@ -1,12 +1,27 @@
-import React from 'react';
-import {Text, View} from 'react-native';
+import React, {FC} from 'react';
+import {ScrollView, StyleSheet} from 'react-native';
+import TitleText from '../components/text/TitleText';
+import CustomForm, {FormData} from '../components/form/CustomForm';
 
-const CreateReferralScreen = () => {
+const CreateReferralScreen: FC = () => {
+  const handleFormSubmit = (formData: FormData) => {
+    console.log(formData);
+  };
   return (
-    <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-      <Text>CreateReferralScreen!</Text>
-    </View>
+    <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
+      <TitleText text="Referral Builder" />
+      <CustomForm onSubmit={handleFormSubmit} />
+    </ScrollView>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    marginVertical: 20,
+    marginHorizontal: 15,
+    backgroundColor: 'white',
+  },
+});
 
 export default CreateReferralScreen;
