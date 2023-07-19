@@ -14,7 +14,7 @@ interface selectorProps {
   onValueChange: (value: string) => void;
 }
 
-const Selector: React.FC<selectorProps> = ({
+const SelectorIos: React.FC<selectorProps> = ({
   label,
   options,
   selectedValue,
@@ -30,7 +30,6 @@ const Selector: React.FC<selectorProps> = ({
           {selectedValue ? selectedValue : 'Select...'}
         </Text>
       </TouchableOpacity>
-
       <Modal
         animationType="slide"
         transparent={true}
@@ -44,13 +43,18 @@ const Selector: React.FC<selectorProps> = ({
                 onValueChange(itemValue as string);
                 setModalVisible(false);
               }}>
-              {options.map(option => (
-                <Picker.Item
-                  key={option.value}
-                  label={option.label}
-                  value={option.value}
-                />
-              ))}
+              {options.map(option => {
+                if (option.value === 'Select...') {
+                  return;
+                }
+                return (
+                  <Picker.Item
+                    key={option.value}
+                    label={option.label}
+                    value={option.value}
+                  />
+                );
+              })}
             </Picker>
           </View>
         </View>
@@ -65,6 +69,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '500',
     marginBottom: 5,
+    color: '#000',
   },
   buttonText: {
     fontSize: 16,
@@ -73,6 +78,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     borderColor: 'gray',
     height: 40,
+    color: '#000',
   },
   modalContainer: {
     flex: 1,
@@ -84,7 +90,8 @@ const styles = StyleSheet.create({
     padding: 16,
     marginHorizontal: 40,
     borderRadius: 8,
+    color: '#000',
   },
 });
 
-export default Selector;
+export default SelectorIos;

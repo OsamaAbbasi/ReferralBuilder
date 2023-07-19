@@ -1,4 +1,5 @@
 import React, {FC} from 'react';
+import {Platform} from 'react-native';
 import {StyleSheet, Text, TextInput, View} from 'react-native';
 
 interface TextFieldProps {
@@ -28,14 +29,16 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '500',
     marginBottom: 5,
+    color: '#000',
   },
   input: {
-    height: 40,
+    height: Platform.OS === 'ios' ? 40 : 50,
     borderColor: 'gray',
     borderWidth: 1,
     borderRadius: 5,
-    paddingHorizontal: 10,
+    paddingHorizontal: Platform.OS === 'ios' ? 10 : 15,
     fontSize: 16,
+    color: '#000',
   },
 });
 

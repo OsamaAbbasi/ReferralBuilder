@@ -6,11 +6,11 @@ interface SubtitleTextProps {
 }
 
 const SubtitleText = (props: SubtitleTextProps) => {
-  return <Text style={styles.titleText}>{props.text}</Text>;
+  return <Text style={styles.subtitleText}>{props.text}</Text>;
 };
 
 const styles = StyleSheet.create({
-  titleText: {
+  subtitleText: {
     fontSize: 15,
     color: 'grey',
     marginVertical: 10,

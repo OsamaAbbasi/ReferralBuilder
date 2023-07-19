@@ -1,9 +1,10 @@
 import React, {FC, useState} from 'react';
-import {View, StyleSheet, Text, TouchableOpacity} from 'react-native';
+import {View, StyleSheet, Text, TouchableOpacity, Platform} from 'react-native';
 import TextField from './TextField';
-import Selector from './Selector';
 import SubtitleText from '../text/SubtitleText';
 import HorizontalLine from '../HorizontalLine';
+import SelectorIos from './SelectorIos';
+import SelectorAndroid from './SelectorAndroid';
 
 export interface FormData {
   fistName: string;
@@ -38,6 +39,7 @@ const CustomForm: FC<CustomFormProps> = ({onSubmit}) => {
   const [formData, setFormData] = useState<FormData>(initialState);
 
   const stateOptions = [
+    {value: 'Select...', label: 'Select...'},
     {value: 'ACT', label: 'ACT'},
     {value: 'NSW', label: 'NSW'},
     {value: 'NT', label: 'NT'},
@@ -48,7 +50,11 @@ const CustomForm: FC<CustomFormProps> = ({onSubmit}) => {
     {value: 'WA', label: 'WA'},
   ];
 
-  const countryOptions = [{value: 'Australia', label: 'Australia'}];
+  const countryOptions = [
+    {value: 'Select...', label: 'Select...'},
+    {value: 'Australia', label: 'Australia'},
+    {value: 'Other', label: 'Other'},
+  ];
 
   const handleInputChange = (field: keyof FormData, value: string) => {
     setFormData(prevData => ({...prevData, [field]: value}));
@@ -109,12 +115,21 @@ const CustomForm: FC<CustomFormProps> = ({onSubmit}) => {
         onChangeText={text => handleInputChange('suburb', text)}
       />
 
-      <Selector
-        label="State"
-        options={stateOptions}
-        selectedValue={formData.state}
-        onValueChange={value => handleInputChange('state', value)}
-      />
+      {Platform.OS === 'ios' ? (
+        <SelectorIos
+          label="State"
+          options={stateOptions}
+          selectedValue={formData.state}
+          onValueChange={value => handleInputChange('state', value)}
+        />
+      ) : (
+        <SelectorAndroid
+          label="State"
+          options={stateOptions}
+          selectedValue={formData.state}
+          onValueChange={value => handleInputChange('state', value)}
+        />
+      )}
 
       <TextField
         label="Post code"
@@ -122,12 +137,21 @@ const CustomForm: FC<CustomFormProps> = ({onSubmit}) => {
         onChangeText={text => handleInputChange('postCode', text)}
       />
 
-      <Selector
-        label="Country"
-        options={countryOptions}
-        selectedValue={formData.country}
-        onValueChange={value => handleInputChange('country', value)}
-      />
+      {Platform.OS === 'ios' ? (
+        <SelectorIos
+          label="Country"
+          options={countryOptions}
+          selectedValue={formData.country}
+          onValueChange={value => handleInputChange('country', value)}
+        />
+      ) : (
+        <SelectorAndroid
+          label="Country"
+          options={countryOptions}
+          selectedValue={formData.country}
+          onValueChange={value => handleInputChange('country', value)}
+        />
+      )}
 
       <TouchableOpacity style={styles.buttonContainer} onPress={handleSubmit}>
         <Text style={styles.buttonText}>Create Referral</Text>

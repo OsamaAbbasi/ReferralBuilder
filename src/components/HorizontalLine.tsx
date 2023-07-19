@@ -7,10 +7,13 @@ const HorizontalLine = () => {
 
 const styles = StyleSheet.create({
   container: {
-    borderBottomColor: '#c0c0c0',
-    borderWidth: 0.5,
-    borderColor: 'transparent',
-    marginTop: 10,
+    borderBottomColor: 'gray',
+    borderTopColor: 'transparent',
+    borderRightColor: 'transparent',
+    borderLeftColor: 'transparent',
+    opacity: 0.2,
+    borderWidth: 1,
+    marginVertical: 10,
   },
 });
 

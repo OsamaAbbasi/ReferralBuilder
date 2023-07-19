@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
   titleText: {
     fontSize: 30,
     fontWeight: '400',
-    color: 'black',
+    color: '#000',
     marginVertical: 10,
   },
 });
