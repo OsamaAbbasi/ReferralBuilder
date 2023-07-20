@@ -1,7 +1,8 @@
 import React, {FC} from 'react';
 import {ScrollView, StyleSheet} from 'react-native';
 import TitleText from '../components/text/TitleText';
-import CustomForm, {FormData} from '../components/form/CustomForm';
+import CustomForm from '../components/form/CustomForm';
+import {FormData} from '../interfaces/interfaces';
 
 const CreateReferralScreen: FC = () => {
   const handleFormSubmit = (formData: FormData) => {

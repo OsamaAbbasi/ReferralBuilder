@@ -1,18 +1,7 @@
 import React, {useState} from 'react';
 import {View, Text, TouchableOpacity, Modal, StyleSheet} from 'react-native';
 import {Picker} from '@react-native-picker/picker';
-
-interface Option {
-  value: string;
-  label: string;
-}
-
-interface selectorProps {
-  label: string;
-  options: Option[];
-  selectedValue: string;
-  onValueChange: (value: string) => void;
-}
+import {selectorProps} from '../../interfaces/interfaces';
 
 const SelectorIos: React.FC<selectorProps> = ({
   label,

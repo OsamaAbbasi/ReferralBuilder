@@ -5,19 +5,7 @@ import SubtitleText from '../text/SubtitleText';
 import HorizontalLine from '../HorizontalLine';
 import SelectorIos from './SelectorIos';
 import SelectorAndroid from './SelectorAndroid';
-
-export interface FormData {
-  fistName: string;
-  lastName: string;
-  email: string;
-  mobile: string;
-  address1: string;
-  address2: string;
-  suburb: string;
-  state: string;
-  postCode: string;
-  country: string;
-}
+import {FormData} from '../../interfaces/interfaces';
 
 interface CustomFormProps {
   onSubmit: (data: FormData) => void;
