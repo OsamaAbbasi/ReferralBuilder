@@ -1,4 +1,4 @@
-import {useState, useEffect} from 'react';
+import {useState} from 'react';
 import axios from 'axios';
 import {BASE_URL} from '../apiConfig';
 import {
@@ -12,7 +12,7 @@ const useApi = (): HookReturnType => {
   const [data, setData] = useState<
     GetReferralsResponse | PostReferralsResponse | null
   >(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   const fetchData = async () => {
@@ -29,15 +29,12 @@ const useApi = (): HookReturnType => {
       );
       setData(response.data);
     } catch (error) {
+      setData(null);
       setError('Error fetching data.');
     } finally {
       setLoading(false);
     }
   };
-
-  useEffect(() => {
-    fetchData();
-  }, []);
 
   const postData = async (formDataObj: FormData) => {
     try {
@@ -50,6 +47,7 @@ const useApi = (): HookReturnType => {
       });
       setData(response.data);
     } catch (error) {
+      setData(null);
       setError('Error sending data.');
     } finally {
       setLoading(false);

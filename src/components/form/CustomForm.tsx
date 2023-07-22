@@ -13,7 +13,7 @@ interface CustomFormProps {
 
 const CustomForm: FC<CustomFormProps> = ({onSubmit}) => {
   const initialState: FormData = {
-    fistName: '',
+    firstName: '',
     lastName: '',
     email: '',
     mobile: '',
@@ -49,7 +49,6 @@ const CustomForm: FC<CustomFormProps> = ({onSubmit}) => {
   };
 
   const handleSubmit = () => {
-    // Perform any validation here before submitting the data
     onSubmit(formData);
     setFormData(initialState);
   };
@@ -60,8 +59,8 @@ const CustomForm: FC<CustomFormProps> = ({onSubmit}) => {
       <HorizontalLine />
       <TextField
         label="First name"
-        value={formData.fistName}
-        onChangeText={text => handleInputChange('fistName', text)}
+        value={formData.firstName}
+        onChangeText={text => handleInputChange('firstName', text)}
       />
 
       <TextField

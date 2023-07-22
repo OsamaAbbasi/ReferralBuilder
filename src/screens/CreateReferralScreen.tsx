@@ -1,13 +1,30 @@
 import React, {FC} from 'react';
 import {ScrollView, StyleSheet} from 'react-native';
+import {BottomTabNavigationProp} from '@react-navigation/bottom-tabs';
 import TitleText from '../components/text/TitleText';
 import CustomForm from '../components/form/CustomForm';
 import {FormData} from '../interfaces/interfaces';
+import useApi from '../hooks/useApi';
+import {RootTabParamList} from '../interfaces/interfaces';
 
-const CreateReferralScreen: FC = () => {
+type CreateReferralScreenProps = BottomTabNavigationProp<
+  RootTabParamList,
+  'Create'
+>;
+
+const CreateReferralScreen: FC<{navigation: CreateReferralScreenProps}> = ({
+  navigation,
+}) => {
+  const {postData} = useApi();
   const handleFormSubmit = (formData: FormData) => {
-    console.log(formData);
+    postData(formData);
+    navigation.reset({
+      index: 0,
+      routes: [{name: 'View'}],
+    });
+    navigation.navigate('View');
   };
+
   return (
     <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
       <TitleText text="Referral Builder" />

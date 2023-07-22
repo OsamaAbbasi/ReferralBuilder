@@ -1,5 +1,5 @@
 export interface FormData {
-  fistName: string;
+  firstName: string;
   lastName: string;
   email: string;
   mobile: string;
@@ -16,8 +16,9 @@ interface Option {
   label: string;
 }
 
-interface DataItem {
+export interface DataItem {
   _id: string;
+  firstName: string;
   lastName: string;
   email: string;
   mobile: string;
@@ -51,3 +52,8 @@ export interface selectorProps {
   selectedValue: string;
   onValueChange: (value: string) => void;
 }
+
+export type RootTabParamList = {
+  Create: undefined;
+  View: undefined;
+};
