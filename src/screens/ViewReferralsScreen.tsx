@@ -47,7 +47,9 @@ const ViewReferralsScreen = () => {
   return (
     <ScrollView contentContainerStyle={styles.conatiner}>
       {loading ? (
-        <ActivityIndicator size={'large'} />
+        <View style={styles.loadingContainer}>
+          <ActivityIndicator size={'large'} color={'green'} />
+        </View>
       ) : (
         <View style={styles.viewRecordsContainer}>
           <TitleText text="View records" />
@@ -76,6 +78,7 @@ const ViewReferralsScreen = () => {
 
 const styles = StyleSheet.create({
   conatiner: {flex: 1, marginHorizontal: 10},
+  loadingContainer: {flex: 1, alignItems: 'center', justifyContent: 'center'},
   viewRecordsContainer: {
     justifyContent: 'flex-start',
     alignItems: 'flex-start',
