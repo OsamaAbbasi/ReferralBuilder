@@ -11,6 +11,7 @@ import {
 import useApi from '../hooks/useApi';
 import {DataItem} from '../interfaces/interfaces';
 import TitleText from '../components/text/TitleText';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 const ViewReferralsScreen = () => {
   const {data, loading, fetchData} = useApi();
@@ -33,8 +34,10 @@ const ViewReferralsScreen = () => {
           <Text style={styles.itemPhoneText}>{item.mobile}</Text>
         </View>
         <View style={styles.itemActions}>
-          <TouchableOpacity onPress={() => {}}>
-            <Text style={styles.itemActionsText}>...</Text>
+          <TouchableOpacity style={styles.itemActionsButton} onPress={() => {}}>
+            <Text>
+              <Ionicons name="ellipsis-vertical" style={styles.icon} />
+            </Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -113,13 +116,10 @@ const styles = StyleSheet.create({
   itemPhone: {flex: 2, justifyContent: 'center'},
   itemPhoneText: {color: '#7A7D96'},
   itemActions: {flex: 1, alignSelf: 'center'},
-  itemActionsText: {
-    textAlign: 'center',
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: '#7A7D96',
-    paddingBottom: 5,
+  itemActionsButton: {
+    alignSelf: 'center',
   },
+  icon: {color: '#7A7D96', fontSize: 20},
 });
 
 export default ViewReferralsScreen;
