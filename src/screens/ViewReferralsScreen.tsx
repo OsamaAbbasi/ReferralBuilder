@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   ActivityIndicator,
   FlatList,
@@ -9,29 +9,48 @@ import {
   View,
 } from 'react-native';
 import useApi from '../hooks/useApi';
-import {DataItem} from '../interfaces/interfaces';
+import {CombinedData, DataItem} from '../interfaces/interfaces';
 import TitleText from '../components/text/TitleText';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import {useSelector} from 'react-redux';
+import {ReferralState} from '../store/referralsSlice';
+import {combineDataAndRemoveDuplicates} from '../utils/combineDataAndRemoveDuplicates';
 
 const ViewReferralsScreen = () => {
   const {data, loading, fetchData} = useApi();
-
+  const referralData = useSelector(
+    (state: ReferralState) => state.referrals.referrals,
+  );
+  const [referrals, setReferrals] = useState<CombinedData[]>([]);
   useEffect(() => {
     fetchData();
   }, []);
+
+  useEffect(() => {
+    if (!loading && data) {
+      const combinedData = combineDataAndRemoveDuplicates(
+        referralData,
+        data as DataItem[],
+      );
+      setReferrals(combinedData);
+    }
+  }, [loading, data, referralData]);
 
   const renderItem = ({item}: {item: DataItem}) => {
     return (
       <View style={styles.itemContainer}>
         <View style={styles.itemName}>
           <Text
-            style={
-              styles.itemNameText
-            }>{`${item.firstName} ${item.lastName}`}</Text>
-          <Text style={styles.itemEmailText}>{`${item.email}`}</Text>
+            style={styles.itemNameText}
+            numberOfLines={1}>{`${item.firstName} ${item.lastName}`}</Text>
+          <Text
+            style={styles.itemEmailText}
+            numberOfLines={1}>{`${item.email}`}</Text>
         </View>
         <View style={styles.itemPhone}>
-          <Text style={styles.itemPhoneText}>{item.mobile}</Text>
+          <Text style={styles.itemPhoneText} numberOfLines={1}>
+            {item.mobile}
+          </Text>
         </View>
         <View style={styles.itemActions}>
           <TouchableOpacity style={styles.itemActionsButton} onPress={() => {}}>
@@ -47,7 +66,9 @@ const ViewReferralsScreen = () => {
   return (
     <ScrollView contentContainerStyle={styles.conatiner}>
       {loading ? (
-        <ActivityIndicator size={'large'} />
+        <View style={styles.loadingContainer}>
+          <ActivityIndicator size={'large'} color={'green'} />
+        </View>
       ) : (
         <View style={styles.viewRecordsContainer}>
           <TitleText text="View records" />
@@ -63,8 +84,8 @@ const ViewReferralsScreen = () => {
             </View>
           </View>
           <FlatList
-            data={data}
-            keyExtractor={item => item._id}
+            data={referrals}
+            keyExtractor={item => item.email}
             renderItem={renderItem}
             style={styles.flatList}
           />
@@ -76,6 +97,7 @@ const ViewReferralsScreen = () => {
 
 const styles = StyleSheet.create({
   conatiner: {flex: 1, marginHorizontal: 10},
+  loadingContainer: {flex: 1, alignItems: 'center', justifyContent: 'center'},
   viewRecordsContainer: {
     justifyContent: 'flex-start',
     alignItems: 'flex-start',

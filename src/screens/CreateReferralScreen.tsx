@@ -6,6 +6,8 @@ import CustomForm from '../components/form/CustomForm';
 import {FormData} from '../interfaces/interfaces';
 import useApi from '../hooks/useApi';
 import {RootTabParamList} from '../interfaces/interfaces';
+import {useDispatch} from 'react-redux';
+import {addReferral} from '../store/referralsSlice';
 
 type CreateReferralScreenProps = BottomTabNavigationProp<
   RootTabParamList,
@@ -16,12 +18,11 @@ const CreateReferralScreen: FC<{navigation: CreateReferralScreenProps}> = ({
   navigation,
 }) => {
   const {postData} = useApi();
+  const dispatch = useDispatch();
+
   const handleFormSubmit = (formData: FormData) => {
     postData(formData);
-    navigation.reset({
-      index: 0,
-      routes: [{name: 'View'}],
-    });
+    dispatch(addReferral(formData));
     navigation.navigate('View');
   };
 
