@@ -57,3 +57,5 @@ export type RootTabParamList = {
   Create: undefined;
   View: undefined;
 };
+
+export type CombinedData = FormData & DataItem;
